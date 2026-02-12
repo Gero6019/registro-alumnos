@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumnos</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <main>
+        <section>
+            <h2>Alumnos</h2>
+            <div>
+                <h4>Agregar alumno</h4>
+                <form onsubmit="addStudent(event)">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
+                    <button type="submit">Agregar</button>
+                </form>
+            </div>
+
+            <div>
+                <h4>Actualizar alumno</h4>
+                <form onsubmit="putStudent(event)">
+                    <label for="id">ID</label>
+                    <input type="number" name="id" id="id" readonly>
+                    <label for="nuevoNombre">Nombre</label>
+                    <input type="text" name="nuevoNombre" id="nuevoNombre" placeholder="Ingrese el nombre" required>
+                    <button type="submit">Actualizar</button>
+                </form>
+            </div>
+
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>*</th>
+                            <th>Nombre</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsList"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Asistencia</h2>
+            <div>
+                
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
