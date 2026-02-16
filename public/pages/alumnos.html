@@ -47,7 +47,40 @@
         <section>
             <h2>Asistencia</h2>
             <div>
-                
+                <h4>Agregar Asistencia</h4>
+                <input type="date" name="date" id="date">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>*</th>
+                            <th>Nombre</th>
+                            <th>Asistencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="asistanceBody">
+
+                    </tbody>
+                </table>
+                <button onclick="addAsistance()">Guardar asistencia</button>
+            </div>
+            
+            <div>
+                <h4>Revisar asistencia</h4>
+                <form onsubmit="searchAsistance(event)">
+                    <label for="dateAsistance">Fecha</label>
+                    <input type="date" name="dateAsistance" id="dateAsistance">
+                    <button type="submit">Buscar</button>
+                </form>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>*</th>
+                            <th>Nombre</th>
+                            <th>Asistencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="showAsistanceBody"></tbody>
+                </table>
             </div>
         </section>
     </main>

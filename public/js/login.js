@@ -16,8 +16,6 @@ const login = async (event)=>{
         body: JSON.stringify(user)
     })
     const data = await res.json();
-
-    if(data.error) return alert(data.message);
-    console.log(data.ok)
+    if(data.status === "Error") return alert(data.message);
     document.location.href = data.redirect;
 }

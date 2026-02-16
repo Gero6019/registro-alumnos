@@ -28,4 +28,14 @@ router.put("/",(req,res)=>{
     }
 })
 
+router.delete("/",(req,res)=>{
+    const {id} = req.body;
+    try {
+        db.prepare("DELETE FROM alumnos WHERE id = ?").run(id);
+        res.json({ok:true})
+    } catch (error) {
+        res.status(401).json({status:"Error",message:"Error al eliminar alumno"})
+    }
+})
+
 module.exports = router;

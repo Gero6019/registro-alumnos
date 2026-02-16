@@ -12,8 +12,7 @@ db.exec(`
         alumno_id INTEGER NOT NULL,
         profesor_id INTEGER NOT NULL,
         fecha TEXT NOT NULL,
-        presente INTEGER NOT NULL,
-        UNIQUE(alumno_id, fecha),
+        presente TEXT NOT NULL,
         FOREIGN KEY (alumno_id) REFERENCES alumnos(id),
         FOREIGN KEY (profesor_id) REFERENCES usuarios(id)
     );
@@ -22,7 +21,7 @@ db.exec(`
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         password TEXT NOT NULL
-    )
+    );
 `)
 
 module.exports = db;

@@ -7,18 +7,25 @@ router.use(auth);
 
 router.get("/",(req,res)=>{
     const { fecha } = req.query;
-    const data = db.prepare("SELECT * FROM asistencias WHERE fecha = ?").all(fecha);
+    const data = db.prepare(`SELECT 
+        alumnos.id, 
+        alumnos.nombre, 
+        asistencias.presente 
+        FROM alumnos
+        JOIN asistencias ON asistencias.alumno_id = alumnos.id
+        WHERE fecha = ?`).all(fecha);
 
     res.json(data);
 })
 
 router.post("/",(req,res)=>{
     const { alumnos, fecha } = req.body;
-    const stmt = db.prepare(`INSERT INTO asistencias (alumno_id, fecha, presente) VALUES (?, ?, ?)`);
+    const stmt = db.prepare(`INSERT INTO asistencias (alumno_id, profesor_id, fecha, presente) VALUES (?, ?, ?, ?)`);
+    const professor_id = req.session.userId
 
     const transaction = db.transaction((list) => {
         for (const e of list) {
-            stmt.run(e.alumno_id, fecha, e.presente);
+            stmt.run(e.alumno_id, professor_id, fecha, e.asistencia);
         }
     });
 

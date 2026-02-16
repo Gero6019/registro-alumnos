@@ -3,3 +3,4 @@ aux.js
 asistencia.db
 package-lock.json
 .env
+.gitignore
