@@ -28,7 +28,7 @@ router.put("/",(req,res)=>{
         db.prepare("UPDATE alumnos SET nombre = ? WHERE id = ?").run(nombre,id);
         res.json({ok:true});   
     } catch (error) {
-        res.status(401).json({status:"Error",message:"Error al actualizar almuno."});
+        res.status(500).json({status:"Error",message:"Error al actualizar almuno."});
     }
 })
 
@@ -38,7 +38,7 @@ router.delete("/",(req,res)=>{
         db.prepare("UPDATE alumnos SET activo = 0 WHERE id = ?").run(id);
         res.json({ok:true})
     } catch (error) {
-        res.status(401).json({status:"Error",message:"Error al eliminar alumno",error})
+        res.status(500).json({status:"Error",message:"Error al eliminar alumno",error})
     }
 })
 

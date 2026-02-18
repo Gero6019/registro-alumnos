@@ -14,85 +14,80 @@
         <nav>
             <button onclick="logout()">Cerrar sesion</button>
             <button onclick="setHidden('postStudent')">Agregar alumno</button>
-            <button onclick="setHidden('postAsistance')">Agregar asistencia</button>
             <button onclick="setHidden('checkAsistance')">Revisar asistencia</button>
         </nav>
     </header>
-    <main>
-        <section>
-            <div class="hidden" id="postStudent">
-                <form onsubmit="addStudent(event)" class="form">
-                    <h4>Agregar alumno</h4>
-                    <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
-                    <button type="submit">Agregar</button>
-                </form>
-            </div>
-
-            <div class="hidden" id="updateStudent">
-                <form onsubmit="putStudent(event)" class="form">
-                    <h4>Actualizar alumno</h4>
-                    <label for="id">ID</label>
-                    <input type="number" name="id" id="id" readonly>
-                    <label for="nuevoNombre">Nombre</label>
-                    <input type="text" name="nuevoNombre" id="nuevoNombre" placeholder="Ingrese el nombre" required>
-                    <button type="submit">Actualizar</button>
-                    <button type="button" onclick="cancelPutStudent(event)">Cancelar</button>
-                </form>
-            </div>
-
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>*</th>
-                            <th>Nombre</th>
-                            <th>Editar</th>
-                        </tr>
-                    </thead>
-                    <tbody id="studentsList"></tbody>
-                </table>
-            </div>
+    <main class="row">
+        <section class="col-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>*</th>
+                        <th>Nombre</th>
+                        <th><i class="fa fa-gear"></i></th>
+                    </tr>
+                </thead>
+                <tbody id="studentsList"></tbody>
+            </table>
         </section>
 
-        <section>
-            <div class="form" id="postAsistance">
-                <h4>Agregar Asistencia</h4>
-                <input type="date" name="date" id="date">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>*</th>
-                            <th>Nombre</th>
-                            <th>Asistencia</th>
-                        </tr>
-                    </thead>
-                    <tbody id="asistanceBody">
+        <section class="col-3 form" id="postAsistance">
+            <h4>Agregar Asistencia</h4>
+            <input type="date" name="date" id="date">
+            <table>
+                <thead>
+                    <tr>
+                        <th>*</th>
+                        <th>Nombre</th>
+                        <th>Asistencia</th>
+                    </tr>
+                </thead>
+                <tbody id="asistanceBody">
 
-                    </tbody>
-                </table>
-                <button onclick="addAsistance()">Guardar asistencia</button>
-            </div>
-            
-            <div class="hidden" id="checkAsistance">
-                <form onsubmit="searchAsistance(event)" class="form">
-                    <h4>Revisar asistencia</h4>
-                    <label for="dateAsistance">Fecha</label>
-                    <input type="date" name="dateAsistance" id="dateAsistance">
-                    <button type="submit">Buscar</button>
-                </form>
-                <table>
-                    <thead>
-                        <tr id="tableHeadAsistance">
-                            <th>*</th>
-                            <th>Nombre</th>
-                            <th>Asistencia</th>
-                            <th><i class="fa fa-gear"></i></th>
-                        </tr>
-                    </thead>
-                    <tbody id="showAsistanceBody"></tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+            <button onclick="addAsistance()">Guardar asistencia</button>
+        </section>
+
+        <section class="col-3 hidden" id="updateStudent">
+            <form onsubmit="updateStudent(event)" class="form">
+                <h4>Actualizar alumno</h4>
+                <label for="id">ID</label>
+                <input type="number" name="id" id="id" readonly>
+                <label for="nuevoNombre">Nombre</label>
+                <input type="text" name="nuevoNombre" id="nuevoNombre" placeholder="Ingrese el nombre" required>
+                <button type="submit">Actualizar</button>
+                <button type="button" onclick="cancelUpdateStudent(event)">Cancelar</button>
+            </form>
+        </section>
+
+        <section class="col-3 hidden" id="postStudent">
+            <form onsubmit="addStudent(event)" class="form">
+                <h4>Agregar alumno</h4>
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
+                <button type="submit">Agregar</button>
+            </form>
+        </section>
+
+        <section class="col-3 hidden" id="checkAsistance">
+            <form onsubmit="searchAsistance(event)" class="form">
+                <h4>Revisar asistencia</h4>
+                <label for="dateAsistance">Fecha</label>
+                <input type="date" name="dateAsistance" id="dateAsistance">
+                <button type="submit">Buscar</button>
+            </form>
+            <table>
+                <thead>
+                    <tr id="tableHeadAsistance">
+                        <th>*</th>
+                        <th>Nombre</th>
+                        <th>Asistencia</th>
+                        <th><i class="fa fa-gear"></i></th>
+                    </tr>
+                </thead>
+                <tbody id="showAsistanceBody"></tbody>
+            </table>
         </section>
     </main>
 

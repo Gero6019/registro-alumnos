@@ -37,37 +37,35 @@ header{
 
 nav{
     display: flex;
+    margin: 10px 5px;
 }
 
 nav button{
     min-height: max-content;
     min-width: min-content;
     padding: 5px 5px;
-    background-color: #008CBA;
+    background-color: #6f72ff;
     border: none;
-    border-right: 1px solid lightblue;
-    border-bottom: 1px solid lightblue;
+    border-right: 1px solid #9bd5ff;
+    border-bottom: 1px solid #9bd5ff;
+    font-weight: bold;
+}
+
+nav button:nth-child(1){
+    border-radius: 10px 0px 0px 10px;
+}
+
+nav button:nth-child(4){
+    border-radius: 0px 10px 10px 0px;
 }
 
 nav button:hover{
-    background-color: #57a0b8;
+    background-color: #8c8efe;
     cursor: pointer;
 }
 
 nav button:active{
-    background-color: #1e5f75;
-}
-
-main{
-    display: flex;
-}
-
-section{
-    padding: 10px;
-}
-
-section div{
-    padding: 10px 0px;
+    background-color: #54559a;
 }
 
 .hidden{
@@ -81,7 +79,7 @@ section div{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: solid 1px rgb(108, 105, 217);
+    border: solid 1px rgb(93, 151, 193);
     border-radius: 5px;
 }
 
@@ -170,8 +168,40 @@ select:disabled{
     cursor: pointer;
 }
 
-.editIcons{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+th{
+    letter-spacing: 2px;
+    padding: 10px;
+    border-bottom: 1px solid rgb(79, 79, 79);
+}
+
+td{
+    letter-spacing: 1px;
+    padding: 10px;
+    border-bottom: 1px solid lightslategray;
+}
+
+table{
+    background-color: #83e0ff6f;
+    padding: 5px;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+}
+
+.col-3{
+    grid-column: span 6;
+}
+
+@media (max-width: 667px) {
+    .col-3{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        grid-column: span 12;
+    }
 }

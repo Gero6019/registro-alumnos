@@ -29,7 +29,7 @@ router.post("/",(req,res)=>{
     const checkDate = db.prepare('SELECT * FROM asistencias WHERE fecha = ?').all(fecha);
 
     if(checkDate.length !== 0){
-        return res.status(401).json({status:"Error",error:"Fecha ya existente."});
+        return res.status(400).json({status:"Error",message:"Fecha ya existente."});
     }
     
     const stmt = db.prepare(`INSERT INTO asistencias (alumno_id, profesor_id, fecha, presente) VALUES (?, ?, ?, ?)`);
@@ -37,9 +37,9 @@ router.post("/",(req,res)=>{
 
     try {
         transaction(alumnos,stmt,{professor_id,fecha});
-        res.json({ ok: true });
+        res.status(201).json({ ok: true });
     } catch (error) {
-        res.status(400).json({ error });
+        res.status(500).json({ error });
     }
 })
 
@@ -49,7 +49,7 @@ router.put("/",(req,res)=>{
         db.prepare('UPDATE asistencias SET presente = ? WHERE alumno_id = ? AND fecha = ?;').run(asistencia,alumno_id,fecha);
         res.json({ok:true});
     } catch (error) {
-        res.status(400).json({error});
+        res.status(500).json({error});
     }
 })
 
