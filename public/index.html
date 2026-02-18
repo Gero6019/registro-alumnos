@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 <body>
-    <h1>Iniciar sesion</h1>
-    <form onsubmit="login(event)">
-        <label for="name">Usuario</label>
-        <input type="text" name="name" id="name" placeholder="Ingrese el usuario" required>
-        <label for="password">Contraseña</label>
-        <input type="password" name="password" id="password" placeholder="Ingrese la contraseña" required>
-        <button type="submit">Ingresar</button>
-    </form>
+    <main>
+        <form onsubmit="login(event)">
+            <h1>Iniciar sesion</h1>
+            <label for="name">Usuario</label>
+            <input type="text" name="name" id="name" placeholder="Ingrese el usuario" required>
+            <label for="password">Contraseña</label>
+            <input type="password" name="password" id="password" placeholder="Ingrese la contraseña" required>
+            <button class="btn" type="submit">Ingresar</button>
+        </form>
+    </main>
 
     <script src="./js/login.js"></script>
 </body>

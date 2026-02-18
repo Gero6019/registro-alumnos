@@ -22,7 +22,7 @@ app.use(session({
 app.use(express.static(path.join(dirPath,'public')));
 
 app.use("/",pages);
-app.use("/api/login",login);
+app.use("/api",login);
 app.use("/api/alumnos",alumnos);
 app.use("/api/asistencias",asistencias);
 

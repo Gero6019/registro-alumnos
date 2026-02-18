@@ -4,7 +4,7 @@ const db = require("../db.js");
 const delay = require("../middleware/delay.js");
 const router = Router();
 
-router.post("/",delay,(req,res)=>{
+router.post("/login",delay,(req,res)=>{
     const {name, password} = req.body;
     const user = db.prepare("SELECT * FROM usuarios WHERE name = ?").get(name);
     if(!user) return res.status(401).json({status:"Error", message:"Credenciales incorrectas."});
@@ -16,7 +16,7 @@ router.post("/",delay,(req,res)=>{
 })
 
 router.post("/logout",(req,res)=>{
-    req.session.destroy(()=>{res.json({ok:true})});
+    req.session.destroy(()=>{res.json({ok:true, redirect:"/"})});
 })
 
 module.exports = router;

@@ -6,9 +6,11 @@ const componentStudentList = (e)=>{
     return`
         <tr data-id="${e.id}" data-name="${e.nombre}">
             <td>${e.id}</td>
-            <td>${e.nombre}</td>
-            <td><button class="edit-btn">Editar</button></td>
-            <td><button class="delete-btn">Eliminar</button></td>
+            <td id="student-${e.id}">${e.nombre}</td>
+            <td class="editIcons">
+                <button class="edit-btn"><i class="material-icons editStudent" style="font-size:26px">edit</i></button>
+                <button class="delete-btn"><i class="fa fa-close deleteStudent" style="font-size:26px"></i></button>
+            </td>
         </tr>
     `
 }
@@ -20,9 +22,9 @@ const componentAsistanceList = (e)=>{
             <td>${e.nombre}</td>
             <td name="select">
                 <select name="asistance">
-                    <option value="presente">P</option>
-                    <option value="ausente">A</option>
-                    <option value="justificado">J</option>
+                    <option value="presente">Presente</option>
+                    <option value="ausente">Ausente</option>
+                    <option value="justificado">Justificado</option>
                 </select>
             </td>
         </tr>
@@ -31,10 +33,17 @@ const componentAsistanceList = (e)=>{
 
 const componentShowAsistance = (e)=>{
     return`
-        <tr>
+        <tr data-asistance-id="${e.id}">
             <td>${e.id}</td>
             <td>${e.nombre}</td>
-            <td>${e.presente}</td>
+            <td name="select">
+                <select name="selectEditAsistance">
+                    <option value="presente" ${e.presente=='presente'? "selected":''}>Presente</option>
+                    <option value="ausente" ${e.presente=='ausente'? "selected":''}>Ausente</option>
+                    <option value="justificado" ${e.presente=='justificado'? "selected":''}>Justificado</option>
+                </select>
+            </td>
+            <td><i class="fa fa-save editAsistance"></i></td>
         </tr>
     `
 }
@@ -82,6 +91,7 @@ const putStudent = async (event)=>{
     });
     const data = await res.json();
     if(data.ok){
+        setHidden("updateStudent")
         alert("Alumno actualizado con exito.");
         tableName.innerText = nombre.value
     }else{
@@ -89,21 +99,38 @@ const putStudent = async (event)=>{
     }
 };
 
-const addStudent = async(event)=>{
-    event.preventDefault();
-    const nombre = event.target.children.nombre
+const cancelPutStudent = (e)=>{
+    const form = e.target.closest("form");
+    form.children.id.value = ""
+    form.children.nuevoNombre.value = ""
+    setHidden("updateStudent")
+}
+
+const postStudent = async(nombre)=>{
     const res = await fetch("/api/alumnos",{
         method:"POST",
         credentials: "include",
         headers:{
             "Content-Type":"application/json"
         },
-        body: JSON.stringify({nombre:nombre.value})
+        body: JSON.stringify({nombre})
     });
     
     const data = await res.json();
-    studentList.innerHTML+=componentStudentList(data)
-    nombre.value = ""
+    if(data.ok){
+        return data;
+    }
+    alert("Error al crear estudiante.");
+    console.log(data.error);
+}
+
+const addStudent = async(event)=>{
+    event.preventDefault();
+    const nombre = event.target.children.nombre;
+    const data = await postStudent(nombre.value);
+    studentList.innerHTML+=componentStudentList(data);
+    asistanceBody.innerHTML+=componentAsistanceList(data);
+    nombre.value = "";
 }
 
 const deleteStudent = async (id)=>{
@@ -119,6 +146,7 @@ const deleteStudent = async (id)=>{
     const data = await res.json();
     if(data.ok) return alert("Registro eliminado.");
     alert(data.message);
+    console.log(data.error);
 }
 
 const getAsistance = async(date)=>{
@@ -137,13 +165,26 @@ const postAsistance = async(students)=>{
         body: JSON.stringify(students)
     })
     const data = await res.json();
-    data.ok ? alert("Asistencia agregada.") : alert(data.message)
+    data.ok ? alert("Asistencia agregada.") : console.log(data.error)
+}
+
+const putAsistance = async(asistance)=>{
+    const res = await fetch("/api/asistencias/",{
+        method:"PUT",
+        credentials: "include",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(asistance)
+    })
+    const data = await res.json();
+    data.ok ? alert("Asistencia actualizada.") : console.log(data.error)
 }
 
 const addAsistance = async ()=>{
     const students = document.querySelectorAll("tr[data-asistance-id]");
     const date = document.getElementById("date");
-    if(date.value ==="") return alert("Agregar fecha.");
+    if(date.value ==="") return alert("Fecha vacia.");
     const data = {
         fecha: date.value,
         alumnos:[]
@@ -154,7 +195,6 @@ const addAsistance = async ()=>{
             asistencia: student.children.select.children.asistance.value
         })
     }
-
     await postAsistance(data);
 }
 
@@ -172,8 +212,31 @@ const searchAsistance = async (event)=>{
     showAsistance(asistance);
 }
 
+const logout = async()=>{
+    const res = await fetch("/api/logout",{
+        method:"POST",
+        credentials: "include",
+        headers:{
+            "Content-Type":"application/json"
+        }
+    })
+    const data = await res.json();
+    if(data.ok){
+        document.location.href = data.redirect;
+    } 
+}
+
+const setHidden = (hidden)=>{
+    const component = document.getElementById(hidden);
+    const checkHidden = component.classList;
+    checkHidden.value.includes("hidden") ? component.classList.remove("hidden") : component.classList.add("hidden");
+    
+}
+
 document.addEventListener('click',async (e)=>{
-    if(e.target.classList.contains('edit-btn')){
+    if(e.target.classList.contains('editStudent')){
+        const component = document.getElementById("updateStudent");
+        component.classList.value.includes("hidden") ? setHidden('updateStudent') : "";
         const tr = e.target.closest("tr");
         const id = tr.dataset.id;
         const nombre = tr.dataset.name;
@@ -181,11 +244,24 @@ document.addEventListener('click',async (e)=>{
         document.getElementById("id").value = id;
     }
 
-    if(e.target.classList.contains('delete-btn')){
+    if(e.target.classList.contains('deleteStudent')){
         const tr = e.target.closest("tr");
         const id = tr.dataset.id;
-        await deleteStudent(id);
-        tr.remove();
+        const opt = confirm("¿Estas seguro de eliminar el registro?")
+        const asistanceTd = document.querySelector(`[data-asistance-id="${id}"]`)
+        if(opt){
+            await deleteStudent(id);
+            tr.remove();
+            asistanceTd.remove();
+        }
+    }
+    
+    if(e.target.classList.contains('editAsistance')){
+        const tr = e.target.closest("tr");
+        const asistance = tr.children.select.children.selectEditAsistance.value;
+        const alumno_id = tr.dataset.asistanceId;
+        const date = document.getElementById("dateAsistance").value;
+        await putAsistance({alumno_id,asistencia:asistance,fecha:date});
     }
 })
 

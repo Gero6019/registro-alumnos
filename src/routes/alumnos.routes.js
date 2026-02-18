@@ -6,16 +6,20 @@ const router = Router();
 router.use(auth);
 
 router.get("/",(req,res)=>{
-    const data = db.prepare("SELECT * FROM alumnos").all();
+    const data = db.prepare("SELECT * FROM alumnos WHERE activo = 1").all();
 
     res.json(data);
 })
 
 router.post("/",(req,res)=>{
     const { nombre } = req.body;
-    const stmt = db.prepare("INSERT INTO alumnos (nombre) VALUES (?)");
-    const info = stmt.run(nombre);
-    res.json({ id: info.lastInsertRowid, nombre });
+    try {
+        const stmt = db.prepare("INSERT INTO alumnos (nombre) VALUES (?)");
+        const info = stmt.run(nombre);
+        res.json({ ok:true,id: info.lastInsertRowid, nombre });
+    } catch (error) {
+        res.json(500).json({error})
+    }
 })
 
 router.put("/",(req,res)=>{
@@ -31,10 +35,10 @@ router.put("/",(req,res)=>{
 router.delete("/",(req,res)=>{
     const {id} = req.body;
     try {
-        db.prepare("DELETE FROM alumnos WHERE id = ?").run(id);
+        db.prepare("UPDATE alumnos SET activo = 0 WHERE id = ?").run(id);
         res.json({ok:true})
     } catch (error) {
-        res.status(401).json({status:"Error",message:"Error al eliminar alumno"})
+        res.status(401).json({status:"Error",message:"Error al eliminar alumno",error})
     }
 })
 

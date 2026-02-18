@@ -1,7 +1,177 @@
+html {
+  --s: 141px; /* control the size*/
+  --c1: #7abfff;
+  --c2: #4a5de8;
+  --c3: #a8deff;
+  --c4: #99a2b8;
+  
+  background:
+    conic-gradient(from  45deg at 75% 75%, var(--c3) 90deg,var(--c1) 0 180deg,#0000 0),
+    conic-gradient(from -45deg at 25% 25%, var(--c3) 90deg,#0000 0),
+    conic-gradient(from -45deg at 50% 100%,#0000 180deg,var(--c3) 0),
+    conic-gradient(from -45deg,var(--c1) 90deg, var(--c2) 0 225deg,var(--c4) 0);
+  background-size: var(--s) var(--s); 
+}
+
 *{
-    background-color: bisque;
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: baseline;
+    height: 100dvh;
+}
+
+header{
+    margin: 20px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+nav{
+    display: flex;
+}
+
+nav button{
+    min-height: max-content;
+    min-width: min-content;
+    padding: 5px 5px;
+    background-color: #008CBA;
+    border: none;
+    border-right: 1px solid lightblue;
+    border-bottom: 1px solid lightblue;
+}
+
+nav button:hover{
+    background-color: #57a0b8;
+    cursor: pointer;
+}
+
+nav button:active{
+    background-color: #1e5f75;
 }
 
 main{
     display: flex;
+}
+
+section{
+    padding: 10px;
+}
+
+section div{
+    padding: 10px 0px;
+}
+
+.hidden{
+    display: none !important;
+}
+
+.form{
+    background-color: rgba(112, 179, 255, 0.427);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px rgb(108, 105, 217);
+    border-radius: 5px;
+}
+
+.form h4{
+    margin-bottom: 10px;
+}
+
+.form input{
+    border: none;
+    border-bottom: 1px solid rgb(119, 124, 153);
+    height: 20px;
+    font-size: 16px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    width: 70%;
+    background-color: rgba(255, 255, 255, 0.336);
+    padding: 2px;
+}
+
+.form button{
+    height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color:rgb(0, 0, 0);
+    background-color: #4a5de8;
+    border: none;
+    border-radius: 0px 0px 5px 5px;
+    border-top: 1px solid #a8deff;
+    width: 100%;
+}
+
+.form button:hover{
+    background-color: #303c99;
+    cursor: pointer;
+}
+
+.form button:active{
+    background-color: #99a2b8;
+}
+
+.form input:focus{
+    outline: none;
+}
+
+.edit-btn{
+    background: none;
+    border: none;
+}
+
+.edit-btn:hover{
+    cursor: pointer;
+}
+
+.edit-btn:active{
+    color: lightslategray;
+}
+
+.delete-btn{
+    background: none;
+    border: none;
+}
+
+.delete-btn:hover{
+    cursor: pointer;
+}
+
+.delete-btn:active{
+    color: lightslategray;
+}
+
+select{
+    background: none;
+    border: none;
+    border-bottom: solid 1px lightyellow;
+    color: black;
+    font-size: 16px;
+}
+
+select:disabled{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+}
+
+.editAsistance:hover{
+    cursor: pointer;
+}
+
+.editIcons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

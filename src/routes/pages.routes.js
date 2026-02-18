@@ -7,7 +7,7 @@ router.get("/",(req,res)=>{
     res.sendFile("index.html");
 })
 
-router.get("/alumnos",auth,(req,res)=>{
+router.get("/alumnos",(req,res)=>{
     res.sendFile(path.join(dirPath,"/public/pages/alumnos.html"));
 });
 

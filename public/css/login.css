@@ -1,0 +1,78 @@
+html {
+  --s: 141px; /* control the size*/
+  --c1: #7abfff;
+  --c2: #4a5de8;
+  --c3: #a8deff;
+  --c4: #99a2b8;
+  
+  background:
+    conic-gradient(from  45deg at 75% 75%, var(--c3) 90deg,var(--c1) 0 180deg,#0000 0),
+    conic-gradient(from -45deg at 25% 25%, var(--c3) 90deg,#0000 0),
+    conic-gradient(from -45deg at 50% 100%,#0000 180deg,var(--c3) 0),
+    conic-gradient(from -45deg,var(--c1) 90deg, var(--c2) 0 225deg,var(--c4) 0);
+  background-size: var(--s) var(--s); 
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+}
+
+form{
+    background-color: rgba(112, 179, 255, 0.427);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px rgb(108, 105, 217);
+    border-radius: 5px;
+    width: 50vh;
+    height: 30dvh;
+}
+form h1{
+    margin-bottom: 20px;
+}
+
+form input{
+    border: none;
+    border-bottom: 1px solid rgb(119, 124, 153);
+    height: 30px;
+    font-size: 20px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    width: 50%;
+    background-color: rgba(255, 255, 255, 0.336);
+    padding: 2px;
+}
+
+.btn{
+    height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color:rgb(0, 0, 0);
+    background-color: #4a5de8;
+    border: none;
+    border-radius: 0px 0px 5px 5px;
+    width: 50%;
+}
+
+.btn:hover{
+    background-color: #303c99;
+    cursor: pointer;
+}
+
+.btn:active{
+    background-color: #99a2b8;
+}
+
+form input:focus{
+    outline: none;
+}

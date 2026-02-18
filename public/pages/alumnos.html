@@ -5,28 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumnos</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <header>
+        <h1>Registro de alumnos</h1>
+        <nav>
+            <button onclick="logout()">Cerrar sesion</button>
+            <button onclick="setHidden('postStudent')">Agregar alumno</button>
+            <button onclick="setHidden('postAsistance')">Agregar asistencia</button>
+            <button onclick="setHidden('checkAsistance')">Revisar asistencia</button>
+        </nav>
+    </header>
     <main>
         <section>
-            <h2>Alumnos</h2>
-            <div>
-                <h4>Agregar alumno</h4>
-                <form onsubmit="addStudent(event)">
+            <div class="hidden" id="postStudent">
+                <form onsubmit="addStudent(event)" class="form">
+                    <h4>Agregar alumno</h4>
                     <label for="nombre">Nombre</label>
                     <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
                     <button type="submit">Agregar</button>
                 </form>
             </div>
 
-            <div>
-                <h4>Actualizar alumno</h4>
-                <form onsubmit="putStudent(event)">
+            <div class="hidden" id="updateStudent">
+                <form onsubmit="putStudent(event)" class="form">
+                    <h4>Actualizar alumno</h4>
                     <label for="id">ID</label>
                     <input type="number" name="id" id="id" readonly>
                     <label for="nuevoNombre">Nombre</label>
                     <input type="text" name="nuevoNombre" id="nuevoNombre" placeholder="Ingrese el nombre" required>
                     <button type="submit">Actualizar</button>
+                    <button type="button" onclick="cancelPutStudent(event)">Cancelar</button>
                 </form>
             </div>
 
@@ -45,8 +56,7 @@
         </section>
 
         <section>
-            <h2>Asistencia</h2>
-            <div>
+            <div class="form" id="postAsistance">
                 <h4>Agregar Asistencia</h4>
                 <input type="date" name="date" id="date">
                 <table>
@@ -64,19 +74,20 @@
                 <button onclick="addAsistance()">Guardar asistencia</button>
             </div>
             
-            <div>
-                <h4>Revisar asistencia</h4>
-                <form onsubmit="searchAsistance(event)">
+            <div class="hidden" id="checkAsistance">
+                <form onsubmit="searchAsistance(event)" class="form">
+                    <h4>Revisar asistencia</h4>
                     <label for="dateAsistance">Fecha</label>
                     <input type="date" name="dateAsistance" id="dateAsistance">
                     <button type="submit">Buscar</button>
                 </form>
                 <table>
                     <thead>
-                        <tr>
+                        <tr id="tableHeadAsistance">
                             <th>*</th>
                             <th>Nombre</th>
                             <th>Asistencia</th>
+                            <th><i class="fa fa-gear"></i></th>
                         </tr>
                     </thead>
                     <tbody id="showAsistanceBody"></tbody>
