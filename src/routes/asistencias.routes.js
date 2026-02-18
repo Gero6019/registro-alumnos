@@ -13,6 +13,10 @@ const transaction = db.transaction((list,stmt,data) => {
 
 router.get("/",(req,res)=>{
     const { fecha } = req.query;
+
+    if(!fecha || typeof fecha !== "string") return res.status(400).json({status:"Error", message:"Credenciales invalidas."});
+
+
     const data = db.prepare(`SELECT 
         alumnos.id, 
         alumnos.nombre, 
@@ -26,6 +30,10 @@ router.get("/",(req,res)=>{
 
 router.post("/",(req,res)=>{
     const { alumnos, fecha } = req.body;
+
+    if(alumnos.length === 0 || Array.isArray(alumnos)) return res.status(400).json({status:"Error", message:"Datos invalidos."});
+    if(!fecha || typeof fecha !== "string") return res.status(400).json({status:"Error", message:"Datos invalidos."});
+
     const checkDate = db.prepare('SELECT * FROM asistencias WHERE fecha = ?').all(fecha);
 
     if(checkDate.length !== 0){
@@ -39,16 +47,22 @@ router.post("/",(req,res)=>{
         transaction(alumnos,stmt,{professor_id,fecha});
         res.status(201).json({ ok: true });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error });
     }
 })
 
 router.put("/",(req,res)=>{
     const {alumno_id,asistencia, fecha} = req.body;
+    if(!alumno_id || typeof alumno_id !== "number") return res.status(400).json({status:"Error", message:"Datos invalidos."});
+    if(!fecha || typeof fecha !== "string") return res.status(400).json({status:"Error", message:"Datos invalidos."});
+    if(!asistencia || typeof asistencia !== "string") return res.status(400).json({status:"Error", message:"Datos invalidos."});
+
     try {
         db.prepare('UPDATE asistencias SET presente = ? WHERE alumno_id = ? AND fecha = ?;').run(asistencia,alumno_id,fecha);
         res.json({ok:true});
     } catch (error) {
+        console.error(error);
         res.status(500).json({error});
     }
 })

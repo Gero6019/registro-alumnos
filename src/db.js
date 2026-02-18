@@ -1,5 +1,5 @@
 const DataBase = require("better-sqlite3");
-const db = new DataBase("./asistencia.db");
+const db = new DataBase("./data/database.db");
 
 db.exec(`
     CREATE TABLE IF NOT EXISTS alumnos(
